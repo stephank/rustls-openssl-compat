@@ -53,6 +53,15 @@ jobs:
           nm target/client | grep -v '__asan_init'
           nm target/server | grep -v '__asan_init'
 
+  build-nixos:
+    name: Test NixOS+Nginx
+    runs-on: ubuntu-latest
+    steps:
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: actions/checkout@v4
+      - name: Run NixOS test
+        run: nix-build ./tests/nixos.nix
+
   valgrind:
     name: Valgrind
     runs-on: ubuntu-latest
